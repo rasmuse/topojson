@@ -28,12 +28,16 @@
     "topojson-svg": "./bin/topojson-svg"
   },
   "scripts": {
-    "pretest": "rm -rf build && mkdir build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../client\\\"; export {version};\");' > build/bundle.js && rollup -f umd -n topojson -o build/topojson.js -- build/bundle.js",
+    "pretest": "rm -rf build && mkdir build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../client\\\"; export {version};\");' > build/bundle.js && rollup -f umd -n topojson -g d3-dsv:d3,d3-geo:d3,d3-geo-projection:d3,d3-queue:d3 -o build/topojson.js -- build/bundle.js",
     "test": "tape 'test/**/*-test.js' && eslint client.js src",
     "prepublish": "npm run test && uglifyjs build/topojson.js -c -m -o build/topojson.min.js",
     "postpublish": "VERSION=`node -e 'console.log(require(\"./package.json\").version)'`; git push && git push --tags && cp -v README.md LICENSE build/topojson.js build/topojson.min.js ../topojson-bower && cd ../topojson-bower && git add README.md LICENSE topojson.js topojson.min.js && git commit -m \"Release $VERSION.\" && git tag -am \"Release $VERSION.\" v${VERSION} && git push && git push --tags && cd ../topojson && cp build/topojson.js ../d3.github.com/topojson.v1.js && cp build/topojson.min.js ../d3.github.com/topojson.v1.min.js && cd ../d3.github.com && git add topojson.v1.js topojson.v1.min.js && git commit -m \"topojson ${VERSION}\" && git push && cd - && zip -j build/topojson.zip -- LICENSE README.md build/topojson.js build/topojson.min.js"
   },
   "dependencies": {
+    "d3-dsv": "^1.0.1",
+    "d3-geo": "^1.2.3",
+    "d3-geo-projection": "^1.0.3",
+    "d3-queue": "^3.0.2",
     "optimist": "0.3",
     "rw": "1",
     "shapefile": "0.3"

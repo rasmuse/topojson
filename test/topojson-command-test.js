@@ -21,7 +21,7 @@ testConversion(
 testConversion(
   "Polygons with --projection",
   "polygon-mercator",
-  "--projection 'd3.geo.mercator()'"
+  "--projection 'd3.geoMercator()'"
   + " --width 960"
   + " --height 500"
   + " --margin 20"
