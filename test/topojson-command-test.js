@@ -30,6 +30,30 @@ testConversion(
 );
 
 testConversion(
+  "Polygons with --projection and proj4, scaled manually to roughly right size",
+  "polygon-mercator",
+  // (480/pi/6400000) to get ~480 pixels in one half Earth circumference
+  "--projection 'proj4(\"EPSG:3857\").scale(480/Math.PI/6400000)'"
+  + " --width 960"
+  + " --height 500"
+  + " --margin 20"
+  + " -- clockwise=test/geojson/polygon-clockwise.json"
+  + " counterclockwise=test/geojson/polygon-counterclockwise.json"
+);
+
+testConversion(
+  "Polygons with --projection and proj4, with interpolation turned off",
+  "polygon-mercator",
+  // precision === Infinity means that lines will never be subsampled
+  "--projection 'proj4(\"EPSG:3857\").precision(Infinity)'"
+  + " --width 960"
+  + " --height 500"
+  + " --margin 20"
+  + " -- clockwise=test/geojson/polygon-clockwise.json"
+  + " counterclockwise=test/geojson/polygon-counterclockwise.json"
+);
+
+testConversion(
   "Polygons with --no-quantization",
   "polygon-no-quantization",
   "--no-quantization"

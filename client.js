@@ -4,3 +4,4 @@ export {default as feature} from "./src/feature";
 export {default as neighbors} from "./src/neighbors";
 export {default as presimplify} from "./src/presimplify";
 export {default as projectGeoJSON} from "./src/projectGeoJSON";
+export {default as proj4Projection} from "./src/proj4Projection";
